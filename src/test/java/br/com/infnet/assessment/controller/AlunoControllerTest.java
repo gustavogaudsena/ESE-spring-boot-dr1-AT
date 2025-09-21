@@ -1,20 +1,24 @@
 package br.com.infnet.assessment.controller;
 
+import br.com.infnet.assessment.config.TestSecurityConfig;
 import br.com.infnet.assessment.dto.AtribuirNotaDTO;
 import br.com.infnet.assessment.dto.CriarAlunoMatriculaDTO;
 import br.com.infnet.assessment.dto.MatricularAlunoDTO;
 import br.com.infnet.assessment.model.*;
+import br.com.infnet.assessment.repository.ProfessorRepository;
 import br.com.infnet.assessment.service.AlunoService;
 import br.com.infnet.assessment.service.MatriculaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -26,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = AlunoController.class)
+@Import(TestSecurityConfig.class)
 class AlunoControllerTest {
 
     @Autowired
@@ -36,6 +41,12 @@ class AlunoControllerTest {
 
     @MockBean
     private MatriculaService matriculaService;
+
+    @MockBean
+    private ProfessorRepository professorRepository;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
 
 
     private final Random random = new Random();

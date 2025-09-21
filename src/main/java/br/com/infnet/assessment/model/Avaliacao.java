@@ -1,5 +1,6 @@
 package br.com.infnet.assessment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Avaliacao {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "matricula_id")
+    @JsonIgnore
     private Matricula matricula;
 
     @Column(nullable = false)

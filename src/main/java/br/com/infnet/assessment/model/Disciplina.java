@@ -1,5 +1,6 @@
 package br.com.infnet.assessment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,6 @@ public class Disciplina {
     private String nome;
 
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Matricula> matriculas;
 }

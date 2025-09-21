@@ -31,7 +31,9 @@ public class MatriculaService {
 
         Aluno aluno = alunoRepository.save(novoAluno);
 
-        this.matricularAluno(aluno.getId(), dto.getDisciplinaCodigo());
+        Matricula matricula = this.matricularAluno(aluno.getId(), dto.getDisciplinaCodigo());
+
+        aluno.setMatriculas(List.of(matricula));
 
         return aluno;
     }

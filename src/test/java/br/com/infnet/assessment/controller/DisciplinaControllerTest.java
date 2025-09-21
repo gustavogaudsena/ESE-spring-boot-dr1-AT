@@ -1,6 +1,8 @@
 package br.com.infnet.assessment.controller;
 
+import br.com.infnet.assessment.config.TestSecurityConfig;
 import br.com.infnet.assessment.model.Disciplina;
+import br.com.infnet.assessment.repository.ProfessorRepository;
 import br.com.infnet.assessment.service.DisciplinaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +11,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -24,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = DisciplinaController.class)
+@Import(TestSecurityConfig.class)
 class DisciplinaControllerTest {
 
     @Autowired
@@ -31,6 +36,13 @@ class DisciplinaControllerTest {
 
     @MockBean
     private DisciplinaService disciplinaService;
+
+    @MockBean
+    private ProfessorRepository professorRepository;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
+
 
     private final Random random = new Random();
     private final String CODIGO_DISCIPLINA = "25GRLEDS01BAD101";
