@@ -18,7 +18,7 @@ public class DisciplinaService {
     @Transactional(readOnly = true)
     public Page<Disciplina> listar(Integer page, Integer size) {
         int p = page == null ? 0 : Math.max(0, page);
-        int s = size == null ? 0 : Math.max(1, size);
+        int s = size == null ? 10 : Math.max(1, size);
         PageRequest pageRequest = PageRequest.of(p, s);
 
         return repository.findAll(pageRequest);

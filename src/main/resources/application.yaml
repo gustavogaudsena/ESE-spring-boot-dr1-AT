@@ -19,3 +19,8 @@ spring:
         hibernate.jdbc.time_zone: America/Sao_Paulo
     hibernate:
       ddl-auto: create-drop
+jwt:
+  private:
+    key: classpath:private.pem
+  public:
+    key: classpath:public.pem

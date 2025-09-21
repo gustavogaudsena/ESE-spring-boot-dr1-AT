@@ -63,7 +63,6 @@ class MatriculaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve matricular aluno com sucesso")
     void criarAlunoEMatricular() {
 
         when(alunoRepository.findById(ALUNO_ID)).thenReturn(Optional.of(aluno));
@@ -79,7 +78,6 @@ class MatriculaServiceTest {
     }
 
     @Test
-    @DisplayName("Não deve matricular aluno já matriculado na disciplina")
     void criarAlunoEMatricular_jaMatriculado() {
         when(alunoRepository.findById(ALUNO_ID)).thenReturn(Optional.of(aluno));
         when(disciplinaRepository.findById(CODIGO_DISCIPLINA_PADRAO)).thenReturn(Optional.of(disciplina));
@@ -91,7 +89,6 @@ class MatriculaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve atribuir nota com sucesso")
     void atribuirNota() {
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setNota(NOTA_PADRAO);
@@ -110,7 +107,6 @@ class MatriculaServiceTest {
     }
 
     @Test
-    @DisplayName("Não deve atribuir nota se aluno não estiver matriculado")
     void atribuirNota_naoMatriculado() {
         when(alunoRepository.findById(ALUNO_ID)).thenReturn(Optional.of(aluno));
         when(disciplinaRepository.findById(CODIGO_DISCIPLINA_PADRAO)).thenReturn(Optional.of(disciplina));
@@ -121,7 +117,6 @@ class MatriculaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve listar alunos aprovados")
     void listarAlunosAprovados() {
         when(disciplinaRepository.findById(CODIGO_DISCIPLINA_PADRAO)).thenReturn(Optional.of(disciplina));
         when(matriculaRepository.findMatriculasAprovadas(disciplina, NOTA_PADRAO)).thenReturn(List.of(matricula));
@@ -133,7 +128,6 @@ class MatriculaServiceTest {
     }
 
     @Test
-    @DisplayName("Deve listar alunos reprovados")
     void listarAlunosReprovados() {
         when(disciplinaRepository.findById(CODIGO_DISCIPLINA_PADRAO)).thenReturn(Optional.of(disciplina));
         when(matriculaRepository.findMatriculasReprovadas(disciplina, NOTA_PADRAO)).thenReturn(List.of(matricula));

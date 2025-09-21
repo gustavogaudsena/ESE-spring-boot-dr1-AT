@@ -65,6 +65,19 @@ class AlunoServiceTest {
         verify(alunoRepository, times(1)).findAll(pageRequest);
     }
 
+    @Test
+    void listar_SemPaginacao() {
+        int p = 0;
+        int s = 10;
+        PageRequest pageRequest = PageRequest.of(p, s);
+        when(alunoRepository.findAll(pageRequest)).thenReturn(new PageImpl<>(List.of(aluno)));
+        Page<Aluno> resultado = alunoService.listar(null, null);
+        assertNotNull(resultado);
+        assertEquals(1, resultado.getTotalElements());
+        assertEquals(List.of(aluno), resultado.stream().toList());
+        verify(alunoRepository, times(1)).findAll(pageRequest);
+    }
+
 
     @Test
     void obterPorCodigo() {

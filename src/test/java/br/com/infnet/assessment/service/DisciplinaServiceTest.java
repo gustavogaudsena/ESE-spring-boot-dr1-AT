@@ -1,5 +1,6 @@
 package br.com.infnet.assessment.service;
 
+import br.com.infnet.assessment.model.Aluno;
 import br.com.infnet.assessment.model.Disciplina;
 import br.com.infnet.assessment.repository.DisciplinaRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,6 +56,18 @@ class DisciplinaServiceTest {
         verify(disciplinaRepository, times(1)).findAll(pageRequest);
     }
 
+   @Test
+    void listar_SemPaginacao() {
+        int p = 0;
+        int s = 10;
+        PageRequest pageRequest = PageRequest.of(p, s);
+        when(disciplinaRepository.findAll(pageRequest)).thenReturn(new PageImpl<>(List.of(disciplina)));
+        Page<Disciplina> resultado = disciplinaService.listar(null, null);
+        assertNotNull(resultado);
+        assertEquals(1, resultado.getTotalElements());
+        assertEquals(List.of(disciplina), resultado.stream().toList());
+        verify(disciplinaRepository, times(1)).findAll(pageRequest);
+    }
 
     @Test
     void obterPorCodigo() {
